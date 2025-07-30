@@ -26,16 +26,12 @@ namespace JsonToPdfClient
             btnLogin.Enabled = false;
             try
             {
-                // 1) Intentar login
                 await AuthService.LoginAsync(txtLogin.Text.Trim(), txtPassword.Text);
 
-                // 2) Si llegó aquí, el login fue exitoso → abro Form1
                 var mainForm = new Form1();
 
-                // Cuando cierre Form1, cierro también el LoginForm y con ello la app
                 mainForm.FormClosed += (s, args) => this.Close();
 
-                // Muestro Form1 y oculto el LoginForm
                 mainForm.Show();
                 this.Hide();
             }

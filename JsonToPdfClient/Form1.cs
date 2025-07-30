@@ -57,11 +57,9 @@ namespace JsonToPdfClient
             btnPrint.Enabled = false;
             try
             {
-                // 1) Leer URL y descargar JSON
                 var endpoint = txtUrl.Text.Trim();
                 string json = await _http.GetStringAsync(endpoint);
 
-                // 2) Parsear a JArray
                 var token = JToken.Parse(json);
                 var items = token is JArray arr ? arr : new JArray(token);
 
@@ -72,18 +70,14 @@ namespace JsonToPdfClient
                     return;
                 }
 
-                // 3) Columnas dinámicas
                 var columns = items
                     .OfType<JObject>()
                     .SelectMany(o => o.Properties().Select(p => p.Name))
                     .Distinct()
                     .ToList();
-
-                // 4) Título = último segmento de la URL
                 var uri = new Uri(endpoint);
                 var title = uri.Segments.Last().Trim('/');
 
-                // 5) Diálogo de guardado
                 using (var sfd = new SaveFileDialog
                 {
                     Filter = "PDF Files (*.pdf)|*.pdf",
@@ -93,7 +87,6 @@ namespace JsonToPdfClient
                     if (sfd.ShowDialog() != DialogResult.OK)
                         return;
 
-                    // 6) Generar PDF
                     Document.Create(doc =>
                     {
                         doc.Page(page =>
