@@ -10,7 +10,7 @@ using static System.Net.WebRequestMethods;
 using QuestPDF.Helpers;
 using System.Linq;
 using System.Net.Http.Headers;
-using TuProyecto.Services;
+using JsonToPdfClient.Services;
 
 
 
@@ -18,24 +18,8 @@ namespace JsonToPdfClient
 {
     public partial class Form1 : Form
     {
-        private readonly HttpClient _http = new HttpClient();
-        //private async Task EnsureLoggedInAsync()
-        //{
-        //    // 1a) Si no tenemos token, hacemos login
-        //    if (string.IsNullOrEmpty(AuthService.JwtToken))
-        //    {
-        //        // Lee credenciales (puedes extraerlas a App.config y leerlas con ConfigurationManager)
-        //        var adminEmail = ConfigurationManager.AppSettings["AdminEmail"];
-        //        var adminPassword = ConfigurationManager.AppSettings["AdminPassword"];
+        private readonly HttpClient _http = AuthService.HttpClient;
 
-        //        await AuthService.LoginAsync(adminEmail, adminPassword);
-        //    }
-
-        //    // 1b) Propaga el header Authorization a nuestro HttpClient
-        //    if (_http.DefaultRequestHeaders.Authorization == null)
-        //        _http.DefaultRequestHeaders.Authorization =
-        //            new AuthenticationHeaderValue("Bearer", AuthService.JwtToken);
-        //}
         public Form1()
         {
             InitializeComponent();
